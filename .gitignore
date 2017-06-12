@@ -11,3 +11,11 @@ pom.xml.asc
 .lein-plugins/
 .lein-failures
 .nrepl-port
+figwheel_server.log
+pom.xml
+/lib/
+/out/
+/target/
+.repl
+.cljs_rhino_repl/
+resources/public/js/compiled
