@@ -4,7 +4,8 @@
             [daily-dash.constants :as constants]
             [daily-dash.ajax :refer [go-get!]]
             [cljs.core.async :refer [put! chan <! >! timeout close!]]
-            [cljs-time.local :as local-time]))
+            [cljs-time.local :as local-time]
+            [cljs-time.coerce :as time-coerce]))
 
 (defn bitcoin-price-thread []
   (go
@@ -19,6 +20,26 @@
         (swap! state assoc-in [:bitcoin :price] prices))
       (<! (timeout constants/update-interval))
       (recur (inc counter)))))
+
+
+(defn weather-thread []
+  (go
+    (loop [counter 0]
+      (println "Bitcoin price update")
+      (let [current (<! (go-get! constants/weather-api-today))
+            weather-today {:temperature {:current (-> current :main :temp)
+                                         :min nil
+                                         :max nil}
+                           :description (-> current :weather first :description)
+                           :wind (:wind current)
+                           :humidity (-> current :main :humidity)
+                           :last-updated (local-time/local-now)
+                           :sun {:rise (time-coerce/from-long (-> current :sys :sunrise))
+                                 :set (time-coerce/from-long (-> current :sys :sunset))}}]
+          (swap! state assoc-in [:weather :today] weather-today))
+      (<! (timeout constants/update-interval))
+      (recur (inc counter)))))
+
 
 (defn state-dump-thread []
   (go

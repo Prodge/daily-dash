@@ -9,7 +9,17 @@
                                                   :USD 0}
                                           :yesterday {:AUD 0
                                                       :USD 0}
-                                          :last-updated nil}}}))
+                                          :last-updated nil}}
+                        :weather {:today {:temperature {:current nil
+                                                        :min nil
+                                                        :max nil}
+                                          :description nil
+                                          :wind {:speed nil
+                                                 :deg nil}
+                                          :humidity nil
+                                          :last-updated nil
+                                          :sun {:rise nil
+                                                :set nil}}}}))
 
 (defn bitcoin-price [day currency]
   (gstring/format constants/price-format

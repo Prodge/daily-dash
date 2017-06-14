@@ -10,6 +10,7 @@
 
 (defn ^:export run []
   (t/bitcoin-price-thread)
+  (t/weather-thread)
   (t/state-dump-thread)
   (r/render [component/dashboard]
   (js/document.getElementById "app")))
