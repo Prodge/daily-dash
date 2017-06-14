@@ -5,13 +5,11 @@
 
 (enable-console-print!)
 
-
+(defn on-js-reload []
+  (println "Reloading"))
 
 (defn ^:export run []
   (t/bitcoin-price-thread)
   (t/state-dump-thread)
   (r/render [component/dashboard]
   (js/document.getElementById "app")))
-
-(defn on-js-reload []
-  (println "Reloading"))

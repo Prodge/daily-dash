@@ -19,3 +19,4 @@ pom.xml
 .repl
 .cljs_rhino_repl/
 resources/public/js/compiled
+*.swp

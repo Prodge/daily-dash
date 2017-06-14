@@ -4,7 +4,7 @@
             [daily-dash.constants :as constants]
             [daily-dash.ajax :refer [go-get!]]
             [cljs.core.async :refer [put! chan <! >! timeout close!]]
-            [cljs-time.core :as t]))
+            [cljs-time.local :as local-time]))
 
 (defn bitcoin-price-thread []
   (go
@@ -15,7 +15,7 @@
                             :USD (get-in today [:bpi :USD :rate_float])}
                     :yesterday {:AUD  (-> (<! (go-get! constants/bitcoin-price-api-yesterday-aud)) :bpi vals first)
                                 :USD (-> (<! (go-get! constants/bitcoin-price-api-yesterday-usd)) :bpi vals first)}
-                    :last-updated (t/now)}]
+                    :last-updated (local-time/local-now)}]
         (swap! state assoc-in [:bitcoin :price] prices))
       (<! (timeout constants/update-interval))
       (recur (inc counter)))))

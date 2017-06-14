@@ -10,6 +10,7 @@
                  [org.clojure/core.async  "0.3.442"
                   :exclusions [org.clojure/tools.reader]]
                  [cljs-ajax "0.6.0"]
+                 [cljsjs/moment "2.17.1-0"]
                  [com.andrewmcveigh/cljs-time "0.5.0"]
                  [reagent "0.6.2"]]
 
