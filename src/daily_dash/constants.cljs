@@ -16,3 +16,5 @@
   (formatter "hh:mm:ss"))
 
 (def price-format "%.2f")
+
+(def temp-format "%.1f")
