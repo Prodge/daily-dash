@@ -13,7 +13,7 @@
   ([url data conf]
     (let [c (chan)
           default-conf {:handler (fn [res] (put! c res))
-                        :error-handler (fn [res] (println "Failed request to " url " Error: " res))
+                        :error-handler (fn [res] (put! c {:error res}))
                         ;:headers {"Access-Control-Allow-Headers" "Content-Type"
 								  ;"Access-Control-Allow-Origin" "*"}
                         :response-format :json
